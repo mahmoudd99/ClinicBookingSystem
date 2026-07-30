@@ -1,4 +1,5 @@
-﻿using Clinic.Application.Interfaces.Persistence;
+﻿using AutoMapper;
+using Clinic.Application.Interfaces.Persistence;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,12 @@ namespace Clinic.Application.Features.Doctors.Commands.UpdateDoctor
  public class UpdateDoctorCommandHandler: IRequestHandler<UpdateDoctorCommand, bool>
     {
         private readonly IDoctorRepository _doctorRepository;
+        private readonly IMapper _mapper;
 
-        public UpdateDoctorCommandHandler(IDoctorRepository doctorRepository)
+        public UpdateDoctorCommandHandler(IDoctorRepository doctorRepository , IMapper mapper)
         {
             _doctorRepository = doctorRepository;
+            _mapper = mapper;
         }
 
         public async Task<bool> Handle(UpdateDoctorCommand request, CancellationToken cancellationToken)
@@ -26,12 +29,13 @@ namespace Clinic.Application.Features.Doctors.Commands.UpdateDoctor
                 throw new Exception("Doctor Not Found");
             }
 
-            doctor.Update(
-                request.FirstName,
-                request.LastName,
-                request.Email,
-                request.PhoneNumber,
-                request.SpecializationId);
+            _mapper.Map(request, doctor);
+            //doctor.Update(
+            //    request.FirstName,
+            //    request.LastName,
+            //    request.Email,
+            //    request.PhoneNumber,
+            //    request.SpecializationId);
 
             await _doctorRepository.UpdateAsync(doctor);
 

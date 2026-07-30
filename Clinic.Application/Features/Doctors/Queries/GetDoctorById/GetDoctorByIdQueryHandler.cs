@@ -1,4 +1,5 @@
-﻿using Clinic.Application.Features.Doctors.Queries.GetAllDoctors;
+﻿using AutoMapper;
+using Clinic.Application.Features.Doctors.Queries.GetAllDoctors;
 using Clinic.Application.Interfaces.Persistence;
 using MediatR;
 using System;
@@ -12,10 +13,12 @@ namespace Clinic.Application.Features.Doctors.Queries.GetDoctorById
     public class GetDoctorByIdQueryHandler : IRequestHandler<GetDoctorByIdQuery, DoctorDto>
     {
         private readonly IDoctorRepository _doctorRepository;
+        private readonly IMapper _mapper;
 
-        public GetDoctorByIdQueryHandler(IDoctorRepository doctorRepository)
+        public GetDoctorByIdQueryHandler(IDoctorRepository doctorRepository,IMapper mapper)
         {
             _doctorRepository = doctorRepository;
+            _mapper = mapper;
         }
 
         public async Task<DoctorDto> Handle(GetDoctorByIdQuery request, CancellationToken cancellationToken)
@@ -27,13 +30,7 @@ namespace Clinic.Application.Features.Doctors.Queries.GetDoctorById
                 throw new Exception("Doctor Not Found");
             }
 
-            return new DoctorDto
-            {
-                Id = doctor.Id,
-                FullName = $"{doctor.FirstName} {doctor.LastName}",
-                Email = doctor.Email,
-                PhoneNumber = doctor.PhoneNumber
-            };
+            return  _mapper.Map<DoctorDto>(doctor);
         }
     }
 }

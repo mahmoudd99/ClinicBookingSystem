@@ -1,7 +1,8 @@
+using Clinic.API.Middlewares;
+using Clinic.Application;
 using Clinic.Infrastructure;
 using Clinic.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-using Clinic.Application;
 
 namespace Clinic.API
 {
@@ -27,7 +28,7 @@ namespace Clinic.API
                 app.UseSwaggerUI();
             }
             // Configure the HTTP request pipeline.
-
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
