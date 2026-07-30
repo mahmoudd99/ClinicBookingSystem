@@ -1,4 +1,6 @@
-﻿using Clinic.Application.Interfaces.Persistence;
+﻿using Clinic.Application.Exceptions;
+using Clinic.Application.Interfaces.Persistence;
+using Clinic.Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -23,7 +25,7 @@ namespace Clinic.Application.Features.Doctors.Commands.DeleteDoctor
 
             if (doctor is null)
             {
-                throw new Exception("Doctor Not Found");
+                throw new NotFoundException(nameof(Doctor), request.Id);
             }
 
             await _doctorRepository.DeleteAsync(doctor);

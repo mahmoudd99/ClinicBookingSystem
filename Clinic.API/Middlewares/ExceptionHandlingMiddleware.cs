@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Clinic.Application.Exceptions;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 
 namespace Clinic.API.Middlewares
@@ -34,7 +35,21 @@ namespace Clinic.API.Middlewares
                     await context.Response.WriteAsync(
                         JsonSerializer.Serialize(response));
                 }
-                catch (Exception)
+            catch (NotFoundException ex)
+            {
+                context.Response.StatusCode = StatusCodes.Status404NotFound;
+                context.Response.ContentType = "application/json";
+
+                var response = new
+                {
+                    Success = false,
+                    Message = ex.Message
+                };
+
+                await context.Response.WriteAsync(
+                    JsonSerializer.Serialize(response));
+            }
+            catch (Exception)
                 {
                     context.Response.StatusCode = StatusCodes.Status500InternalServerError;
                     context.Response.ContentType = "application/json";

@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Clinic.Application.Exceptions;
 using Clinic.Application.Interfaces.Persistence;
+using Clinic.Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -26,16 +28,17 @@ namespace Clinic.Application.Features.Doctors.Commands.UpdateDoctor
 
             if (doctor is null)
             {
-                throw new Exception("Doctor Not Found");
+                //throw new Exception("Doctor Not Found");
+                throw new NotFoundException(nameof(Doctor), request.Id);
             }
 
-            _mapper.Map(request, doctor);
-            //doctor.Update(
-            //    request.FirstName,
-            //    request.LastName,
-            //    request.Email,
-            //    request.PhoneNumber,
-            //    request.SpecializationId);
+            //_mapper.Map(request, doctor);
+            doctor.Update(
+                request.FirstName,
+                request.LastName,
+                request.Email,
+                request.PhoneNumber,
+                request.SpecializationId);
 
             await _doctorRepository.UpdateAsync(doctor);
 
