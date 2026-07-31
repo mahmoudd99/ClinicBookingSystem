@@ -1,4 +1,6 @@
 ﻿using Clinic.Domain.Entities;
+using Clinic.Domain.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,12 +12,11 @@ using System.Threading.Tasks;
 namespace Clinic.Infrastructure.Persistence.Context
 {
 
-    public class ClinicDbContext : DbContext
+    public class ClinicDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ClinicDbContext(DbContextOptions<ClinicDbContext> options) : base(options)
+        public ClinicDbContext(DbContextOptions<ClinicDbContext> options)
+     : base(options)
         {
-
-            
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,5 +25,6 @@ namespace Clinic.Infrastructure.Persistence.Context
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ClinicDbContext).Assembly);
         }
         public DbSet<Doctor> Doctors => Set<Doctor>();
+        public DbSet<Specialization> Specializations => Set<Specialization>();
     }
 }
