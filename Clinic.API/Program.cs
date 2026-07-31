@@ -2,17 +2,18 @@ using Clinic.API.Middlewares;
 using Clinic.Application;
 using Clinic.Application.Configurations;
 using Clinic.Infrastructure;
-using Clinic.Infrastructure.Persistence.Context;
+using Clinic.Infrastructure.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+
 
 namespace Clinic.API
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static  async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +52,12 @@ namespace Clinic.API
 
 
             var app = builder.Build();
+            using (var scope = app.Services.CreateScope())
+            {
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                await IdentitySeeder.SeedRolesAsync(roleManager);
+
+            }
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
