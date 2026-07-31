@@ -1,4 +1,5 @@
-﻿using Clinic.Application.Features.Auth.Commands.Register;
+﻿using Clinic.Application.Features.Auth.Commands.Login;
+using Clinic.Application.Features.Auth.Commands.Register;
 using Clinic.Application.Features.Auth.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,19 @@ namespace Clinic.API.Controllers
         public async Task<IActionResult> Register(RegisterRequest request)
         {
             var result = await _mediator.Send(new RegisterCommand
+            {
+                Request = request
+            });
+
+            return Ok(result);
+        }
+
+
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginRequest request)
+        {
+            var result = await _mediator.Send(new LoginCommand
             {
                 Request = request
             });

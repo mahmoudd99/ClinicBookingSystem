@@ -1,7 +1,11 @@
-﻿using Clinic.Application.Interfaces.Persistence;
+﻿using Clinic.Application.Configurations;
+using Clinic.Application.Interfaces.Authentication;
+using Clinic.Application.Interfaces.Persistence;
 using Clinic.Domain.Identity;
+using Clinic.Infrastructure.Authentication;
 using Clinic.Infrastructure.Persistence.Context;
 using Clinic.Infrastructure.Persistence.Repositories;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +15,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AuthenticationService = Clinic.Infrastructure.Authentication.AuthenticationService;
+using IAuthenticationService = Clinic.Application.Interfaces.Authentication.IAuthenticationService;
 
 namespace Clinic.Infrastructure
 {
@@ -35,7 +41,10 @@ namespace Clinic.Infrastructure
             })
                 .AddEntityFrameworkStores<ClinicDbContext>()
                 .AddDefaultTokenProviders();
+            services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
 
+            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
 
             services.AddScoped<IDoctorRepository, DoctorRepository>();
 

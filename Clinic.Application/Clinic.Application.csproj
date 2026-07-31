@@ -16,7 +16,6 @@
     <Folder Include="Common\Responses\" />
     <Folder Include="Common\Pagination\" />
     <Folder Include="Features\Appointments\" />
-    <Folder Include="Features\Auth\Commands\Login\" />
     <Folder Include="Features\Specializations\" />
     <Folder Include="Features\Patients\" />
   </ItemGroup>

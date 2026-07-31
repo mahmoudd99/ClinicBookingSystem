@@ -4,10 +4,12 @@ using Clinic.Application.Features.Doctors.Commands.UpdateDoctor;
 using Clinic.Application.Features.Doctors.Queries.GetAllDoctors;
 using Clinic.Application.Features.Doctors.Queries.GetDoctorById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clinic.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class DoctorsController : ControllerBase
