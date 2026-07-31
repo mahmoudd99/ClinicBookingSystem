@@ -2,6 +2,7 @@
 using Clinic.Application.Features.Auth.DTOs;
 using Clinic.Application.Interfaces.Authentication;
 using Clinic.Domain.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -18,20 +19,31 @@ namespace Clinic.Infrastructure.Authentication
     public class JwtTokenGenerator : IJwtTokenGenerator
     {
         private readonly JwtSettings _jwtSettings;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public JwtTokenGenerator(IOptions<JwtSettings> jwtSettings)
+        public JwtTokenGenerator(
+            IOptions<JwtSettings> jwtSettings,
+            UserManager<ApplicationUser> userManager)
         {
             _jwtSettings = jwtSettings.Value;
+            _userManager = userManager;
         }
 
-        public Task<JwtResponse> GenerateToken(ApplicationUser user)
+        public async Task<JwtResponse> GenerateToken(ApplicationUser user)
         {
-            var claims = new List<Claim>
-{
+        var claims = new List<Claim>
+         {
     new Claim(JwtRegisteredClaimNames.Sub, user.Id),
     new Claim(JwtRegisteredClaimNames.Email, user.Email!),
     new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName!)
-};
+        };
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             var key = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(_jwtSettings.Key));
@@ -48,11 +60,11 @@ namespace Clinic.Infrastructure.Authentication
                 signingCredentials: credentials);
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            return Task.FromResult(new JwtResponse
+            return new JwtResponse
             {
                 Token = tokenHandler.WriteToken(token),
                 ExpiresAt = token.ValidTo
-            });
+            };
 
         }
     }

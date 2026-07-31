@@ -1,6 +1,7 @@
 using Clinic.API.Middlewares;
 using Clinic.Application;
 using Clinic.Application.Configurations;
+using Clinic.Domain.Identity;
 using Clinic.Infrastructure;
 using Clinic.Infrastructure.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -55,7 +56,9 @@ namespace Clinic.API
             using (var scope = app.Services.CreateScope())
             {
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-                await IdentitySeeder.SeedRolesAsync(roleManager);
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+                await IdentitySeeder.SeedAsync(roleManager, userManager);
 
             }
             if (app.Environment.IsDevelopment())
