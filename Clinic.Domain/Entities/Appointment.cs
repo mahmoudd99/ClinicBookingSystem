@@ -1,4 +1,5 @@
 ﻿using Clinic.Domain.Enums.AppointmentStatus;
+using Clinic.Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,16 +46,28 @@ namespace Clinic.Domain.Entities
 
         public void Confirm()
         {
+            if (Status != AppointmentStatus.Pending)
+                throw new BusinessException("Only pending appointments can be confirmed.");
+
             Status = AppointmentStatus.Confirmed;
         }
 
         public void Complete()
         {
+            if (Status != AppointmentStatus.Confirmed)
+                throw new BusinessException("Only confirmed appointments can be completed.");
+
             Status = AppointmentStatus.Completed;
         }
 
         public void Cancel()
         {
+            if (Status == AppointmentStatus.Completed)
+                throw new BusinessException("Completed appointments cannot be cancelled.");
+
+            if (Status == AppointmentStatus.Cancelled)
+                throw new BusinessException("Appointment is already cancelled.");
+
             Status = AppointmentStatus.Cancelled;
         }
     }

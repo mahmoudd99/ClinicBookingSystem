@@ -35,5 +35,13 @@ namespace Clinic.Infrastructure.Persistence.Repositories
                 x.AppointmentDate == appointmentDate &&
                 x.Status != AppointmentStatus.Cancelled);
         }
+        public async Task<List<Appointment>> GetDoctorAppointmentsAsync(int doctorId)
+        {
+            return await _context.Appointments
+                .Include(a => a.Patient)
+                .Where(a => a.DoctorId == doctorId)
+                .OrderBy(a => a.AppointmentDate)
+                .ToListAsync();
+        }
     }
 }

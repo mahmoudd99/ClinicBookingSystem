@@ -14,5 +14,7 @@ namespace Clinic.Application.Interfaces.Persistence
         Task<bool> IsDoctorAvailableAsync(
             int doctorId,
             DateTime appointmentDate);
+        Task<List<Appointment>> GetDoctorAppointmentsAsync(int doctorId);
+
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Clinic.Application.Exceptions;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
+using Clinic.Domain.Exceptions;
+using BusinessException = Clinic.Domain.Exceptions.BusinessException;
 
 namespace Clinic.API.Middlewares
 {

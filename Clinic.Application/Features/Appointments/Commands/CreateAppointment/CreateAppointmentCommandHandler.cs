@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using Clinic.Application.Exceptions;
+using Clinic.Domain.Exceptions;
+using Clinic.Application.Exceptions; 
 using Clinic.Application.Interfaces.Persistence;
 using Clinic.Domain.Entities;
 using MediatR;
@@ -54,7 +55,7 @@ namespace Clinic.Application.Features.Appointments.Commands.CreateAppointment
                 request.DoctorId,
                 request.AppointmentDate))
             {
-                throw new BusinessException("Doctor already has an appointment at this time.");
+                throw new Domain.Exceptions.BusinessException("Doctor already has an appointment at this time.");
             }
             var appointment = new Appointment(
                             request.DoctorId,

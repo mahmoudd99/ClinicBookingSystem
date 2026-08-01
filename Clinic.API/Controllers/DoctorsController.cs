@@ -1,4 +1,5 @@
-﻿using Clinic.Application.Features.Doctors.Commands.CreateDoctor;
+﻿using Clinic.Application.Features.Appointments.Queries.GetDoctorAppointments;
+using Clinic.Application.Features.Doctors.Commands.CreateDoctor;
 using Clinic.Application.Features.Doctors.Commands.DeleteDoctor;
 using Clinic.Application.Features.Doctors.Commands.UpdateDoctor;
 using Clinic.Application.Features.Doctors.Queries.GetAllDoctors;
@@ -10,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Clinic.API.Controllers
 {
    
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [ApiController]
     [Route("api/[controller]")]
     public class DoctorsController : ControllerBase
@@ -67,6 +68,15 @@ namespace Clinic.API.Controllers
             {
                 Id = id
             });
+
+            return Ok(result);
+        }
+
+        [HttpGet("{doctorId}/appointments")]
+        public async Task<IActionResult> GetAppointments(int doctorId)
+        {
+            var result = await _mediator.Send(
+                new GetDoctorAppointmentsQuery(doctorId));
 
             return Ok(result);
         }
