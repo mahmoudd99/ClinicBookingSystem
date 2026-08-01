@@ -48,6 +48,7 @@ namespace Clinic.Domain.Entities
         public int SpecializationId { get; private set; }
 
         public Specialization Specialization { get; private set; } = null!;
+        public ICollection<Appointment> Appointments { get; private set; }= new List<Appointment>();
 
 
         public void ChangePhoneNumber(string phoneNumber)

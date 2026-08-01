@@ -49,6 +49,21 @@ namespace Clinic.API.Middlewares
                 await context.Response.WriteAsync(
                     JsonSerializer.Serialize(response));
             }
+            catch (BusinessException ex)
+            {
+                context.Response.StatusCode = StatusCodes.Status409Conflict;
+                context.Response.ContentType = "application/json";
+
+                var response = new
+                {
+                    Success = false,
+                    Message = ex.Message
+                };
+
+                await context.Response.WriteAsync(
+                    JsonSerializer.Serialize(response));
+            }
+
             catch (Exception)
                 {
                     context.Response.StatusCode = StatusCodes.Status500InternalServerError;

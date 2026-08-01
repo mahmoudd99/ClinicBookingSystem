@@ -15,7 +15,6 @@
     <Folder Include="Common\Behaviors\" />
     <Folder Include="Common\Responses\" />
     <Folder Include="Common\Pagination\" />
-    <Folder Include="Features\Appointments\" />
     <Folder Include="Features\Specializations\" />
   </ItemGroup>
 
