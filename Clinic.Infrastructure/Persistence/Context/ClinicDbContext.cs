@@ -26,5 +26,6 @@ namespace Clinic.Infrastructure.Persistence.Context
         }
         public DbSet<Doctor> Doctors => Set<Doctor>();
         public DbSet<Specialization> Specializations => Set<Specialization>();
+        public DbSet<Patient> Patients => Set<Patient>();
     }
 }
