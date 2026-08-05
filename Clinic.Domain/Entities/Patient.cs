@@ -25,7 +25,7 @@ namespace Clinic.Domain.Entities
         public string Address { get; private set; } = string.Empty;
 
         public ICollection<Appointment> Appointments { get; private set; } = new List<Appointment>();
-
+        public ICollection<MedicalRecord> MedicalRecords { get; private set; }= new List<MedicalRecord>();
         private Patient()
         {
 

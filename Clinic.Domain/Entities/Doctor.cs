@@ -49,7 +49,7 @@ namespace Clinic.Domain.Entities
 
         public Specialization Specialization { get; private set; } = null!;
         public ICollection<Appointment> Appointments { get; private set; }= new List<Appointment>();
-
+        public ICollection<MedicalRecord> MedicalRecords { get; private set; }= new List<MedicalRecord>();
 
         public void ChangePhoneNumber(string phoneNumber)
         {
