@@ -52,7 +52,6 @@ namespace Clinic.Infrastructure.Authentication
 
             return "User registered successfully.";
         }
-
         public async Task<AuthResponse> LoginAsync(LoginRequest request)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
@@ -72,8 +71,18 @@ namespace Clinic.Infrastructure.Authentication
                 throw new Exception("Invalid email or password.");
             }
 
-            
+            // Generate Access Token
             var jwt = await _jwtTokenGenerator.GenerateToken(user);
+
+            // Generate Refresh Token
+            var refreshToken = Guid.NewGuid().ToString();
+
+            // Save Refresh Token
+            user.SetRefreshToken(
+                refreshToken,
+                DateTime.UtcNow.AddDays(7));
+
+            await _userManager.UpdateAsync(user);
 
             var roles = await _userManager.GetRolesAsync(user);
 
@@ -83,7 +92,8 @@ namespace Clinic.Infrastructure.Authentication
                 Message = "Login successful.",
 
                 Token = jwt.Token,
-               
+
+                RefreshToken = refreshToken,
 
                 UserId = user.Id,
                 UserName = user.UserName!,
@@ -91,8 +101,9 @@ namespace Clinic.Infrastructure.Authentication
 
                 Roles = roles,
 
-                ExpiresAt = jwt.ExpiresAt,
+                ExpiresAt = jwt.ExpiresAt
             };
         }
+
     }
 }

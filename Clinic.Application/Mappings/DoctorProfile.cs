@@ -16,11 +16,16 @@ namespace Clinic.Application.Mappings
     {
         public DoctorProfile()
         {
-            CreateMap<Doctor, DoctorDto>();
+            CreateMap<Doctor, DoctorDto>()
+                 .ForMember(
+                            dest => dest.FullName,
+                            opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}")
+                        );
 
             CreateMap<CreateDoctorCommand, Doctor>();
 
             CreateMap<UpdateDoctorCommand, Doctor>();
+            
         }
     }
 }

@@ -12,5 +12,23 @@ namespace Clinic.Domain.Identity
         public string FirstName { get; set; } = string.Empty;
 
         public string LastName { get; set; } = string.Empty;
+        public string? RefreshToken { get; private set; }
+
+        public DateTime? RefreshTokenExpiryTime { get; private set; }
+
+        public void SetRefreshToken(
+            string refreshToken,
+            DateTime expiryTime)
+        {
+            RefreshToken = refreshToken;
+            RefreshTokenExpiryTime = expiryTime;
+        }
+
+        public void ClearRefreshToken()
+        {
+            RefreshToken = null;
+            RefreshTokenExpiryTime = null;
+        }
     }
 }
+

@@ -12,20 +12,21 @@ namespace Clinic.Application.Interfaces.Persistence
     {
         Task AddAsync(Appointment appointment);
 
-        Task<bool> IsDoctorAvailableAsync(
-            int doctorId,
-            DateTime appointmentDate);
-        Task<List<Appointment>> GetDoctorAppointmentsAsync(int doctorId);
+        Task<bool> IsDoctorAvailableAsync(int doctorId, DateTime appointmentDate);
+Task<List<Appointment>> GetDoctorAppointmentsAsync(int doctorId);
         Task<Appointment?> GetByIdAsync(int id);
 
         Task UpdateAsync(Appointment appointment);
 
       Task<(List<Appointment> Items, int TotalCount)> SearchAsync(
-     int? doctorId,
-     string? patientName,
-     AppointmentStatus? status,
-     DateTime? date,
-     int pageNumber,
-     int pageSize);
-    }
+                int? doctorId,
+                string? patientName,
+                AppointmentStatus? status,
+                DateTime? date,
+                int pageNumber, 
+                int pageSize
+          
+          );
+
+       }
 }

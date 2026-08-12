@@ -1,4 +1,5 @@
 ﻿using Clinic.Application.Features.Auth.Commands.Login;
+using Clinic.Application.Features.Auth.Commands.RefreshToken;
 using Clinic.Application.Features.Auth.Commands.Register;
 using Clinic.Application.Features.Auth.DTOs;
 using MediatR;
@@ -40,5 +41,17 @@ namespace Clinic.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost("refresh-token")]
+        public async Task<IActionResult> RefreshToken(
+        RefreshTokenCommand command)
+            {
+                var result = await _mediator.Send(command);
+
+                return Ok(result);
+            }
+
+
+
     }
 }

@@ -23,6 +23,7 @@ namespace Clinic.Domain.Entities
         public string Gender { get; private set; } = string.Empty;
 
         public string Address { get; private set; } = string.Empty;
+        public DateTime CreatedAt { get; private set; }
 
         public ICollection<Appointment> Appointments { get; private set; } = new List<Appointment>();
         public ICollection<MedicalRecord> MedicalRecords { get; private set; }= new List<MedicalRecord>();
@@ -32,13 +33,13 @@ namespace Clinic.Domain.Entities
         }
 
         public Patient(
-            string firstName,
-            string lastName,
-            string nationalId,
-            string phoneNumber,
-            DateTime dateOfBirth,
-            string gender,
-            string address)
+                string firstName,
+                string lastName,
+                string nationalId,
+                string phoneNumber,
+                DateTime dateOfBirth,
+                string gender,
+                string address)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -47,6 +48,8 @@ namespace Clinic.Domain.Entities
             DateOfBirth = dateOfBirth;
             Gender = gender;
             Address = address;
+
+            CreatedAt = DateTime.UtcNow;
         }
 
         public void Update(
