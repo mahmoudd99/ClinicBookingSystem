@@ -1,39 +1,56 @@
-# 🏥 Clinic Management System - Backend
+# 🏥 Clinic Management System - Frontend
 
-A scalable RESTful API for managing clinic operations, built with ASP.NET Core and following Clean Architecture principles.
+A modern Angular frontend for a Clinic Management System designed to manage doctors, patients, appointments, and authentication workflows.
 
-The system provides APIs for managing doctors, patients, appointments, authentication, and clinic workflows.
+The application provides a clean dashboard interface with protected routes, reusable layout components, and REST API integration with an ASP.NET Core backend.
 
 ---
 
 ## 🚀 Features
 
-### 🔐 Authentication & Authorization
-- User Registration
+### 🔐 Authentication
+
 - User Login
+- User Registration
+- Logout
 - JWT Authentication
-- Refresh Tokens
-- Role-Based Authorization
-- Secure Password Management
+- Access Token Management
+- Refresh Token Support
+- Authentication Guard
+- Protected Routes
 
-### 👨‍⚕️ Doctors
-- Create Doctor
-- Update Doctor
+### 🧭 Clinic Dashboard
+
+- Modern Dashboard
+- Reusable Sidebar Layout
+- User Information
+- Navigation Between Clinic Features
+- Responsive Interface
+
+### 👨‍⚕️ Doctors Management
+
+- View Doctors
+- Add Doctor
+- Edit Doctor
 - Delete Doctor
-- Get Doctors
-- Doctor Specialization Management
+- Doctor Specialization
+- Doctor Information Management
 
-### 🧑‍🤝‍🧑 Patients
-- Create Patient
-- Update Patient
-- Delete Patient
-- Get Patients
+### 🧑‍🤝‍🧑 Patients Management
 
-### 📅 Appointments
-- Create Appointment
+- View Patients
+- Patient Information
+- Patient Management
+- Loading and Error Handling
+
+### 📅 Appointments Management
+
+- View Appointments
+- Add Appointment
 - Confirm Appointment
 - Cancel Appointment
 - Search Appointments
+- Filter Appointments
 - Filter by Doctor
 - Filter by Patient
 - Filter by Status
@@ -42,30 +59,47 @@ The system provides APIs for managing doctors, patients, appointments, authentic
 
 ---
 
-## 🏗️ Architecture
-
-The project follows **Clean Architecture** to maintain separation of concerns and make the application scalable and maintainable.
+## 🖥️ Application Structure
 
 ```text
-Clinic
+src/app
 │
-├── Clinic.API
+├── core
+│   ├── guards
+│   │   ├── auth-guard
+│   │   └── role-guard
+│   │
+│   ├── models
+│   │
+│   └── services
+│       ├── auth
+│       ├── doctor
+│       ├── patient
+│       └── appointment
 │
-├── Clinic.Application
-│   ├── Features
-│   ├── DTOs
-│   ├── Interfaces
-│   ├── Commands
-│   └── Queries
+├── features
+│   │
+│   ├── auth
+│   │   ├── login
+│   │   └── register
+│   │
+│   ├── dashboard
+│   │   └── dashboard
+│   │
+│   ├── doctors
+│   │   ├── list
+│   │   ├── add
+│   │   └── edit
+│   │
+│   ├── patients
+│   │   └── list
+│   │
+│   └── appointments
+│       ├── list
+│       └── add
 │
-├── Clinic.Domain
-│   ├── Entities
-│   ├── Enums
-│   ├── Exceptions
-│   └── Identity
-│
-└── Clinic.Infrastructure
-    ├── Persistence
-    ├── Repositories
-    ├── Authentication
-    └── Services
+└── shared
+    └── layout
+        ├── layout.ts
+        ├── layout.html
+        └── layout.css
