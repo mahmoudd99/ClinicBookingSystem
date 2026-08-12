@@ -1,105 +1,90 @@
-# 🏥 Clinic Management System - Frontend
+# 🏥 Clinic Management System - Backend
 
-A modern Angular frontend for a Clinic Management System designed to manage doctors, patients, appointments, and authentication workflows.
+A scalable RESTful API for a Clinic Management System built with ASP.NET Core and designed using Clean Architecture principles.
 
-The application provides a clean dashboard interface with protected routes, reusable layout components, and REST API integration with an ASP.NET Core backend.
+The system provides backend services for managing doctors, patients, appointments, authentication, authorization, and clinic workflows.
 
 ---
 
 ## 🚀 Features
 
-### 🔐 Authentication
+### 🔐 Authentication & Authorization
 
-- User Login
 - User Registration
-- Logout
+- User Login
 - JWT Authentication
-- Access Token Management
+- Access Token Generation
 - Refresh Token Support
-- Authentication Guard
-- Protected Routes
-
-### 🧭 Clinic Dashboard
-
-- Modern Dashboard
-- Reusable Sidebar Layout
-- User Information
-- Navigation Between Clinic Features
-- Responsive Interface
+- Secure Password Management
+- ASP.NET Core Identity
+- Role-Based Authorization
 
 ### 👨‍⚕️ Doctors Management
 
-- View Doctors
-- Add Doctor
-- Edit Doctor
+- Create Doctor
+- Get Doctors
+- Get Doctor By Id
+- Update Doctor
 - Delete Doctor
-- Doctor Specialization
-- Doctor Information Management
+- Doctor Specialization Management
 
 ### 🧑‍🤝‍🧑 Patients Management
 
-- View Patients
-- Patient Information
-- Patient Management
-- Loading and Error Handling
+- Create Patient
+- Get Patients
+- Get Patient By Id
+- Update Patient
+- Delete Patient
+- Patient Information Management
 
 ### 📅 Appointments Management
 
-- View Appointments
-- Add Appointment
+- Create Appointment
 - Confirm Appointment
 - Cancel Appointment
 - Search Appointments
-- Filter Appointments
 - Filter by Doctor
-- Filter by Patient
-- Filter by Status
+- Filter by Patient Name
+- Filter by Appointment Status
 - Filter by Date
 - Pagination
+- Appointment Status Management
 
 ---
 
-## 🖥️ Application Structure
+## 🏗️ Architecture
+
+The project follows **Clean Architecture** principles to provide separation of concerns, maintainability, scalability, and testability.
 
 ```text
-src/app
+ClinicBookingSystem
 │
-├── core
-│   ├── guards
-│   │   ├── auth-guard
-│   │   └── role-guard
-│   │
-│   ├── models
-│   │
-│   └── services
-│       ├── auth
-│       ├── doctor
-│       ├── patient
-│       └── appointment
+├── Clinic.API
+│   ├── Controllers
+│   ├── Middleware
+│   └── Configuration
 │
-├── features
+├── Clinic.Application
+│   ├── Features
+│   │   ├── Auth
+│   │   ├── Doctors
+│   │   ├── Patients
+│   │   └── Appointments
 │   │
-│   ├── auth
-│   │   ├── login
-│   │   └── register
-│   │
-│   ├── dashboard
-│   │   └── dashboard
-│   │
-│   ├── doctors
-│   │   ├── list
-│   │   ├── add
-│   │   └── edit
-│   │
-│   ├── patients
-│   │   └── list
-│   │
-│   └── appointments
-│       ├── list
-│       └── add
+│   ├── Common
+│   ├── DTOs
+│   ├── Interfaces
+│   └── Mappings
 │
-└── shared
-    └── layout
-        ├── layout.ts
-        ├── layout.html
-        └── layout.css
+├── Clinic.Domain
+│   ├── Entities
+│   ├── Enums
+│   ├── Identity
+│   └── Common
+│
+└── Clinic.Infrastructure
+    ├── Persistence
+    ├── Repositories
+    ├── Authentication
+    ├── Identity
+    └── Services
