@@ -65,6 +65,13 @@ The system provides backend services for managing doctors, patients, appointment
 
 ![Swagger Patients](docs/swagger-patients.png)
 ## 🏗️ Architecture
+## 🖥️ Frontend
+
+This project is part of the Clinic Management System Full Stack application.
+
+The frontend is built with Angular and communicates with this ASP.NET Core REST API.
+
+👉 [ClinicFrontend](https://github.com/mahmoudd99/ClinicFrontend)
 
 The project follows Clean Architecture principles to provide separation of concerns, maintainability, scalability, and testability.
 
