@@ -51,7 +51,19 @@ The system provides backend services for managing doctors, patients, appointment
 - Appointment Status Management
 
 ---
+## 📸 API Documentation
 
+### 🔐 Authentication & Appointments
+
+![Swagger Authentication and Appointments](docs/swagger-auth-appointments.png)
+
+### 👨‍⚕️ Doctors
+
+![Swagger Doctors](docs/swagger-doctors.png)
+
+### 🧑‍🤝‍🧑 Patients
+
+![Swagger Patients](docs/swagger-patients.png)
 ## 🏗️ Architecture
 
 The project follows Clean Architecture principles to provide separation of concerns, maintainability, scalability, and testability.
