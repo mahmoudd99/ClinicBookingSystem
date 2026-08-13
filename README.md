@@ -54,7 +54,7 @@ The system provides backend services for managing doctors, patients, appointment
 
 ## 🏗️ Architecture
 
-The project follows **Clean Architecture** principles to provide separation of concerns, maintainability, scalability, and testability.
+The project follows Clean Architecture principles to provide separation of concerns, maintainability, scalability, and testability.
 
 ```text
 ClinicBookingSystem
